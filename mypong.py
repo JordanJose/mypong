@@ -7,6 +7,11 @@
 import turtle
 import os
 
+# Velocidade inicial
+INITIAL_SPEED = 0.1
+# A cada rebatida a bola aumenta em 7,5% a velocidade
+SPEED_INCREASE = 0.0075
+
 # desenhar tela
 screen = turtle.Screen()
 screen.title("My Pong")
@@ -39,8 +44,8 @@ ball.shape("square")
 ball.color("white")
 ball.penup()
 ball.goto(0,0)
-ball.dx = 2
-ball.dy = 2
+ball.dx = INITIAL_SPEED
+ball.dy = INITIAL_SPEED
 
 # pontuação
 score_1 = 0
@@ -122,7 +127,10 @@ while True:
         hud.write("{} : {}".format(score_1, score_2), align="center", font=("Press Start 2P",24,"normal") )
         os.system("afplay 258020__kodack__arcade-bleep-sound.wav&")
         ball.goto(0,0)
-        ball.dx *= -1
+        # Reiniciando a velocidade
+        ball.dx = INITIAL_SPEED
+        ball.dy = INITIAL_SPEED
+        ball.dx *= 1
     
     #colisão com parede direita
     if ball.xcor() > 390:
@@ -131,15 +139,42 @@ while True:
         hud.write("{} : {}".format(score_1, score_2), align="center", font=("Press Start 2P",24,"normal") )
         os.system("afplay 258020__kodack__arcade-bleep-sound.wav&")
         ball.goto(0,0)
+        # Reiniciando a velocidade
+        ball.dx = INITIAL_SPEED
+        ball.dy = INITIAL_SPEED      
         ball.dx *= -1
 
 
     # colisão com raquete 1
     if ball.xcor() < -330 and ball.ycor() < paddle_1.ycor() + 50 and ball.ycor() > paddle_1.ycor() - 50:
-        ball.dx *= -1     
+        ball.dx *= -1
+        if (ball.dx < 0):
+            ball.dx -= SPEED_INCREASE
+            if (ball.dy < 0):
+                ball.dy -= SPEED_INCREASE
+            else:
+                ball.dy += SPEED_INCREASE
+        else:
+            ball.dx += SPEED_INCREASE
+            if (ball.dy >= 0):
+                ball.dy += SPEED_INCREASE
+            else:
+                ball.dy -= SPEED_INCREASE    
         os.system("afplay bounce.wav&")   
     
     # colisão com raquete 2
     if ball.xcor() > 330 and ball.ycor() < paddle_2.ycor() + 50 and ball.ycor() > paddle_2.ycor() - 50:
         ball.dx *= -1
+        if (ball.dx < 0):
+            ball.dx -= SPEED_INCREASE
+            if (ball.dy < 0):
+                ball.dy -= SPEED_INCREASE
+            else:
+                ball.dy += SPEED_INCREASE
+        else:
+            ball.dx += SPEED_INCREASE
+            if (ball.dy >= 0):
+                ball.dy += SPEED_INCREASE
+            else:
+                ball.dy -= SPEED_INCREASE
         os.system("afplay bounce.wav&")
