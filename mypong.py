@@ -61,6 +61,15 @@ hud.hideturtle()
 hud.goto(0, 260)
 hud.write("0 : 0", align="center", font=("Press Start 2P", 24, "normal"))
 
+# Tela de vitória
+win = turtle.Turtle()
+win.speed(0)
+win.shape("square")
+win.color("white")
+win.penup()
+win.hideturtle()
+win.goto(0, 0)
+
 
 # mover raquete 1
 def paddle_1_up():
@@ -187,3 +196,12 @@ while True:
             else:
                 ball.dy -= SPEED_INCREASE
         os.system("aplay bounce.wav&")
+
+    # Pontuação limite
+    if score_1 == 5 or score_2 == 5:
+        # Escondendo as raquetes e parando a bola
+        ball.dx = 0
+        ball.dy = 0
+        ball.hideturtle()
+        paddle_1.hideturtle()
+        paddle_2.hideturtle()
