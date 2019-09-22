@@ -83,6 +83,7 @@ win = turtle.Turtle()
 win.speed(0)
 win.shape("square")
 win.color("white")
+win.shapesize(stretch_wid=10, stretch_len=5)
 win.penup()
 win.hideturtle()
 win.goto(0, 0)
@@ -216,10 +217,12 @@ while True:
 
     # Pontuação limite
     if score_1 == 5 or score_2 == 5:
-        # Escondendo as raquetes e parando a bola
         winner = 'player 1' if score_1 > score_2 else 'player 2'
         score_1 = score_2 = 0
-        screen.textinput("Fim de jogo, vencedor: {}".format(winner), "Press [ENTER] to restart")
+        win.write("Vitoria {}".format(winner),align="center",
+            font=("Press Start 2P", 24, "normal"))
+        screen.textinput("Vitoria {}".format(winner), "Press [ENTER] to restart")
+        win.clear()
         hud.clear()
         hud.write("{} : {}".format(score_1, score_2), align="center", font=(
             "Press Start 2P", 24, "normal"))
