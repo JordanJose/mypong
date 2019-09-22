@@ -59,7 +59,7 @@ paddle_2.dy = 20
 # desenhar bola
 ball = turtle.Turtle()
 ball.speed(0)
-ball.shape("square")
+ball.shape("circle")
 ball.color("white")
 ball.penup()
 ball.goto(0, 0)
@@ -111,26 +111,6 @@ def paddle_1_down():
     else:
         y = -250
     paddle_1.sety(y)
-
-
-def paddle_2_up():
-    y = paddle_2.ycor()
-    if y < 250:
-        y += 20
-    else:
-        y = 250
-    paddle_2.sety(y)
-    yield paddle_2.sety(y)
-
-
-def paddle_2_down():
-    y = paddle_2.ycor()
-    if y > -250:
-        y += -20
-    else:
-        y = -250
-    paddle_2.sety(y)
-    yield paddle_2.sety(y)
 
 # mapeando as teclas
 screen.listen()
