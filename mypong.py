@@ -5,19 +5,36 @@
 # som pontuação https://freesound.org/people/Kodack/sounds/258020/
 
 import turtle
+import time
 import os
 
 # Velocidade inicial
-INITIAL_SPEED = 0.1
+INITIAL_SPEED = 0.2
 # A cada rebatida a bola aumenta em 7,5% a velocidade
 SPEED_INCREASE = 0.0075
 
-# desenhar tela
+# desenhar tela de jogo
 screen = turtle.Screen()
 screen.title("My Pong")
 screen.bgcolor("black")
 screen.setup(width=800, height=600)
 screen.tracer(0)
+
+# desenhar tela de inicio
+
+begin = turtle.Turtle()
+begin.shape("square")
+begin.color("white")
+begin.shapesize(stretch_wid=10, stretch_len=5)
+begin.speed(0)
+begin.penup()
+begin.hideturtle()
+sec = 2
+begin.write("Press [ENTER] to start a game",align="center",
+            font=("Press Start 2P", 24, "normal"))
+
+screen.textinput("BEGIN", "Press ENTER")
+screen.reset()
 
 # desenhar raquete 1
 paddle_1 = turtle.Turtle()
@@ -144,7 +161,7 @@ while True:
         # Reiniciando a velocidade
         ball.dx = INITIAL_SPEED
         ball.dy = INITIAL_SPEED
-        ball.dx *= 1
+        ball.dx *= -1
 
     # colisão com parede direita
     if ball.xcor() > 390:
@@ -200,8 +217,10 @@ while True:
     # Pontuação limite
     if score_1 == 5 or score_2 == 5:
         # Escondendo as raquetes e parando a bola
-        ball.dx = 0
-        ball.dy = 0
-        ball.hideturtle()
-        paddle_1.hideturtle()
-        paddle_2.hideturtle()
+        winner = 'player 1' if score_1 > score_2 else 'player 2'
+        score_1 = score_2 = 0
+        screen.textinput("Fim de jogo, vencedor: {}".format(winner), "Press [ENTER] to restart")
+        hud.clear()
+        hud.write("{} : {}".format(score_1, score_2), align="center", font=(
+            "Press Start 2P", 24, "normal"))
+        screen.listen()
