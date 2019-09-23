@@ -180,39 +180,58 @@ while True:
     # colisão com raquete 1
     if (ball.xcor() < -330 and ball.ycor() < paddle_1.ycor() + 50 and
             ball.ycor() > paddle_1.ycor() - 50):
+        division_paddle = (ball.ycor() - paddle_1.ycor())
+        pos_neg = 1 if ball.dy >= 0 else -1
+        if division_paddle == 0: # caso a bola bata no meio da raquete
+            ball.dy = 0
+        else:
+            # Usando 12.5 pois eh o resultado de 100/8
+            division_paddle //= 12.5 # divisao inteira
+            division_paddle += 1 # com isso saberei qual quadrante da bola bateu
+            if division_paddle == 1:
+                ball.dy = pos_neg*0.02
+            elif division_paddle == 2:
+                ball.dy = pos_neg*0.05
+            elif division_paddle == 3:
+                ball.dy = pos_neg*0.07
+            elif division_paddle == 4:
+                ball.dy = pos_neg*0.1
+            else:
+                ball.dy = pos_neg*0.15
         ball.dx *= -1
         ball.setx(-330)
         if (ball.dx < 0):
             ball.dx -= SPEED_INCREASE
-            if (ball.dy < 0):
-                ball.dy -= SPEED_INCREASE
-            else:
-                ball.dy += SPEED_INCREASE
         else:
             ball.dx += SPEED_INCREASE
-            if (ball.dy >= 0):
-                ball.dy += SPEED_INCREASE
-            else:
-                ball.dy -= SPEED_INCREASE
         os.system("aplay bounce.wav&")
 
     # colisão com raquete 2
     if (ball.xcor() > 330 and ball.ycor() < paddle_2.ycor() + 50 and
             ball.ycor() > paddle_2.ycor() - 50):
+        division_paddle = (ball.ycor() - paddle_2.ycor())
+        pos_neg = 1 if ball.dy >= 0 else -1
+        if division_paddle == 0:
+            ball.dy = 0
+        else:
+            division_paddle //= 12.5
+            division_paddle += 1
+            if division_paddle == 1:
+                ball.dy = pos_neg*0.02
+            elif division_paddle == 2:
+                ball.dy = pos_neg*0.05
+            elif division_paddle == 3:
+                ball.dy = pos_neg*0.07
+            elif division_paddle == 4:
+                ball.dy = pos_neg*0.1
+            else:
+                ball.dy = pos_neg*0.15
         ball.setx(330)
         ball.dx *= -1
         if (ball.dx < 0):
             ball.dx -= SPEED_INCREASE
-            if (ball.dy < 0):
-                ball.dy -= SPEED_INCREASE
-            else:
-                ball.dy += SPEED_INCREASE
         else:
             ball.dx += SPEED_INCREASE
-            if (ball.dy >= 0):
-                ball.dy += SPEED_INCREASE
-            else:
-                ball.dy -= SPEED_INCREASE
         os.system("aplay bounce.wav&")
 
     # Pontuação limite
