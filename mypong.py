@@ -7,6 +7,7 @@
 import turtle
 import time
 import os
+from random import randint
 
 # Velocidade inicial
 INITIAL_SPEED = 0.2
@@ -162,7 +163,10 @@ while True:
         # Reiniciando a velocidade
         ball.dx = INITIAL_SPEED
         ball.dy = INITIAL_SPEED
-        ball.dx *= -1
+        # Inicio do jogo aleatorio
+        ball.dx *= 1
+        if randint(0,1) == 0:
+            ball.dy *= -1
 
     # colisão com parede direita
     if ball.xcor() > 390:
@@ -176,6 +180,8 @@ while True:
         ball.dx = INITIAL_SPEED
         ball.dy = INITIAL_SPEED
         ball.dx *= -1
+        if randint(0,1) == 0:
+            ball.dy *= -1
 
     # colisão com raquete 1
     if (ball.xcor() < -330 and ball.ycor() < paddle_1.ycor() + 50 and
