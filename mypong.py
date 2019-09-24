@@ -5,7 +5,6 @@
 # som pontuação https://freesound.org/people/Kodack/sounds/258020/
 
 import turtle
-import time
 import os
 from random import randint
 
@@ -31,7 +30,7 @@ begin.speed(0)
 begin.penup()
 begin.hideturtle()
 sec = 2
-begin.write("Press [ENTER] to start a game",align="center",
+begin.write("Press [ENTER] to start a game", align="center",
             font=("Press Start 2P", 24, "normal"))
 
 screen.textinput("BEGIN", "Press ENTER")
@@ -165,7 +164,7 @@ while True:
         ball.dy = INITIAL_SPEED
         # Inicio do jogo aleatorio
         ball.dx *= 1
-        if randint(0,1) == 0:
+        if randint(0, 1) == 0:
             ball.dy *= -1
 
     # colisão com parede direita
@@ -180,7 +179,7 @@ while True:
         ball.dx = INITIAL_SPEED
         ball.dy = INITIAL_SPEED
         ball.dx *= -1
-        if randint(0,1) == 0:
+        if randint(0, 1) == 0:
             ball.dy *= -1
 
     # colisão com raquete 1
@@ -188,12 +187,13 @@ while True:
             ball.ycor() > paddle_1.ycor() - 50):
         division_paddle = (ball.ycor() - paddle_1.ycor())
         pos_neg = 1 if ball.dy >= 0 else -1
-        if division_paddle == 0: # caso a bola bata no meio da raquete
+        if division_paddle == 0:  # caso a bola bata no meio da raquete
             ball.dy = 0
         else:
             # Usando 12.5 pois eh o resultado de 100/8
-            division_paddle //= 12.5 # divisao inteira
-            division_paddle += 1 # com isso saberei qual quadrante da bola bateu
+            division_paddle //= 12.5  # divisao inteira
+            # com isso saberei qual quadrante da bola bateu
+            division_paddle += 1
             if division_paddle == 1:
                 ball.dy = pos_neg*0.02
             elif division_paddle == 2:
@@ -244,9 +244,10 @@ while True:
     if score_1 == 5 or score_2 == 5:
         winner = 'player 1' if score_1 > score_2 else 'player 2'
         score_1 = score_2 = 0
-        win.write("Vitoria {}".format(winner),align="center",
-            font=("Press Start 2P", 24, "normal"))
-        screen.textinput("Vitoria {}".format(winner), "Press [ENTER] to restart")
+        win.write("Vitoria {}".format(winner), align="center",
+                  font=("Press Start 2P", 24, "normal"))
+        screen.textinput("Vitoria {}".format(winner),
+                         "Press [ENTER] to restart")
         win.clear()
         hud.clear()
         hud.write("{} : {}".format(score_1, score_2), align="center", font=(
