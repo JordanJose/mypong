@@ -11,7 +11,7 @@ from random import randint
 
 # Velocidade inicial
 INITIAL_SPEED = 0.2
-# A cada rebatida a bola aumenta em 7,5% a velocidade
+# A cada rebatida a bola aumenta em 3,25% a velocidade
 SPEED_INCREASE = 0.0075
 
 # desenhar tela de jogo
@@ -89,6 +89,7 @@ win.penup()
 win.hideturtle()
 win.goto(0, 0)
 
+
 # mover raquete 1
 def paddle_1_up():
     y = paddle_1.ycor()
@@ -139,7 +140,7 @@ while True:
     # movimentação da bola
     ball.setx(ball.xcor() + ball.dx)
     ball.sety(ball.ycor() + ball.dy)
-    
+
     # Pegando posições da bola e da segunda raquete
     ball_position = ball.ycor()
     paddle_2_position = paddle_2.ycor()
@@ -259,18 +260,18 @@ while True:
             "Press Start 2P", 24, "normal"))
         screen.listen()
 
-    # módulo 1 jogador    
+    # módulo 1 jogador
     if len(argv) == 2:
         if str(argv[1]) == "-1":
             if ball_position > paddle_2_position:
                 if paddle_2_position > 250:
                     paddle_2.sety(paddle_2.ycor() + 0)
                 else:
-                    paddle_2.sety(paddle_2.ycor() + 0.2)
+                    paddle_2.sety(paddle_2.ycor() + 0.133)
             elif ball_position == paddle_2_position:
                 paddle_2.sety(paddle_2.ycor())
             else:
-                if paddle_2_position < -280:
+                if paddle_2_position < -250:
                     paddle_2.sety(paddle_2.ycor() + 0)
                 else:
-                    paddle_2.sety(paddle_2.ycor() + -0.2)
+                    paddle_2.sety(paddle_2.ycor() + -0.133)
