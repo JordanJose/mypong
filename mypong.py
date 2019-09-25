@@ -4,6 +4,7 @@
 # fonte Press Start 2P https://www.fontspace.com/codeman38/press-start-2p
 # som pontuação https://freesound.org/people/Kodack/sounds/258020/
 
+from sys import argv
 import turtle
 import os
 from random import randint
@@ -88,7 +89,6 @@ win.penup()
 win.hideturtle()
 win.goto(0, 0)
 
-
 # mover raquete 1
 def paddle_1_up():
     y = paddle_1.ycor()
@@ -129,8 +129,9 @@ def paddle_2_down():
 screen.listen()
 screen.onkeypress(paddle_1_up, "w")
 screen.onkeypress(paddle_1_down, "s")
-screen.onkeypress(paddle_2_up, "Up")
-screen.onkeypress(paddle_2_down, "Down")
+if len(argv) < 2:
+    screen.onkeypress(paddle_2_up, "Up")
+    screen.onkeypress(paddle_2_down, "Down")
 
 while True:
     screen.update()
@@ -138,6 +139,10 @@ while True:
     # movimentação da bola
     ball.setx(ball.xcor() + ball.dx)
     ball.sety(ball.ycor() + ball.dy)
+    
+    # Pegando posições da bola e da segunda raquete
+    ball_position = ball.ycor()
+    paddle_2_position = paddle_2.ycor()
 
     # colisão com parede superior
     if ball.ycor() > 290:
@@ -253,3 +258,19 @@ while True:
         hud.write("{} : {}".format(score_1, score_2), align="center", font=(
             "Press Start 2P", 24, "normal"))
         screen.listen()
+    print(argv[1])
+    # módulo 1 jogador    
+    if len(argv) == 2:
+        if str(argv[1]) == "-1":
+            if ball_position > paddle_2_position:
+                if paddle_2_position > 250:
+                    paddle_2.sety(paddle_2.ycor() + 0)
+                else:
+                    paddle_2.sety(paddle_2.ycor() + 0.2)
+            elif ball_position == paddle_2_position:
+                paddle_2.sety(paddle_2.ycor())
+            else:
+                if paddle_2_position < -280:
+                    paddle_2.sety(paddle_2.ycor() + 0)
+                else:
+                    paddle_2.sety(paddle_2.ycor() + -0.2)
