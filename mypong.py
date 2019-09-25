@@ -10,7 +10,7 @@ import os
 from random import randint
 
 # Velocidade inicial
-INITIAL_SPEED = 0.2
+INITIAL_SPEED = 0.5
 # A cada rebatida a bola aumenta em 3,25% a velocidade
 SPEED_INCREASE = 0.0075
 
@@ -191,9 +191,9 @@ while True:
     # colisão com raquete 1
     if (ball.xcor() < -330 and ball.ycor() < paddle_1.ycor() + 50 and
             ball.ycor() > paddle_1.ycor() - 50):
-        division_paddle = (ball.ycor() - paddle_1.ycor())
+        division_paddle = (abs(ball.ycor()) - abs(paddle_1.ycor()))
         pos_neg = 1 if ball.dy >= 0 else -1
-        if division_paddle == 0:  # caso a bola bata no meio da raquete
+        if division_paddle < 1 and division_paddle > 0:  # caso a bola bata no meio da raquete
             ball.dy = 0
         else:
             # Usando 12.5 pois eh o resultado de 100/8
@@ -203,13 +203,13 @@ while True:
             if division_paddle == 1:
                 ball.dy = pos_neg*0.02
             elif division_paddle == 2:
-                ball.dy = pos_neg*0.05
-            elif division_paddle == 3:
                 ball.dy = pos_neg*0.07
-            elif division_paddle == 4:
+            elif division_paddle == 3:
                 ball.dy = pos_neg*0.1
+            elif division_paddle == 4:
+                ball.dy = pos_neg*0.2
             else:
-                ball.dy = pos_neg*0.15
+                ball.dy = pos_neg*0.3
         ball.dx *= -1
         ball.setx(-330)
         if (ball.dx < 0):
@@ -221,9 +221,9 @@ while True:
     # colisão com raquete 2
     if (ball.xcor() > 330 and ball.ycor() < paddle_2.ycor() + 50 and
             ball.ycor() > paddle_2.ycor() - 50):
-        division_paddle = (ball.ycor() - paddle_2.ycor())
+        division_paddle = (abs(ball.ycor()) - abs(paddle_2.ycor()))
         pos_neg = 1 if ball.dy >= 0 else -1
-        if division_paddle == 0:
+        if division_paddle < 1 and division_paddle > 0:
             ball.dy = 0
         else:
             division_paddle //= 12.5
@@ -231,13 +231,13 @@ while True:
             if division_paddle == 1:
                 ball.dy = pos_neg*0.02
             elif division_paddle == 2:
-                ball.dy = pos_neg*0.05
-            elif division_paddle == 3:
                 ball.dy = pos_neg*0.07
-            elif division_paddle == 4:
+            elif division_paddle == 3:
                 ball.dy = pos_neg*0.1
+            elif division_paddle == 4:
+                ball.dy = pos_neg*0.2
             else:
-                ball.dy = pos_neg*0.15
+                ball.dy = pos_neg*0.3
         ball.setx(330)
         ball.dx *= -1
         if (ball.dx < 0):
@@ -267,11 +267,11 @@ while True:
                 if paddle_2_position > 250:
                     paddle_2.sety(paddle_2.ycor() + 0)
                 else:
-                    paddle_2.sety(paddle_2.ycor() + 0.133)
+                    paddle_2.sety(paddle_2.ycor() + 0.3)
             elif ball_position == paddle_2_position:
                 paddle_2.sety(paddle_2.ycor())
             else:
                 if paddle_2_position < -250:
                     paddle_2.sety(paddle_2.ycor() + 0)
                 else:
-                    paddle_2.sety(paddle_2.ycor() + -0.133)
+                    paddle_2.sety(paddle_2.ycor() + -0.3)
