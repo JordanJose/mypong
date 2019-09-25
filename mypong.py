@@ -32,7 +32,7 @@ begin.penup()
 begin.hideturtle()
 sec = 2
 begin.write("Press [ENTER] to start a game", align="center",
-            font=("Press Start 2P", 24, "normal"))
+            font=("Press Start 2P", 16, "normal"))
 
 screen.textinput("BEGIN", "Press ENTER")
 screen.reset()
@@ -162,7 +162,7 @@ while True:
         score_2 += 1
         hud.clear()
         hud.write("{} : {}".format(score_1, score_2), align="center", font=(
-            "Press Start 2P", 24, "normal"))
+            "Press Start 2P", 16, "normal"))
         os.system("aplay 258020__kodack__arcade-bleep-sound.wav&")
         ball.goto(0, 0)
         # Reiniciando a velocidade
@@ -178,7 +178,7 @@ while True:
         score_1 += 1
         hud.clear()
         hud.write("{} : {}".format(score_1, score_2), align="center", font=(
-            "Press Start 2P", 24, "normal"))
+            "Press Start 2P", 16, "normal"))
         os.system("aplay 258020__kodack__arcade-bleep-sound.wav&")
         ball.goto(0, 0)
         # Reiniciando a velocidade
@@ -251,7 +251,7 @@ while True:
         winner = 'player 1' if score_1 > score_2 else 'player 2'
         score_1 = score_2 = 0
         win.write("Vitoria {}".format(winner), align="center",
-                  font=("Press Start 2P", 24, "normal"))
+                  font=("Press Start 2P", 16, "normal"))
         screen.textinput("Vitoria {}".format(winner),
                          "Press [ENTER] to restart")
         win.clear()
