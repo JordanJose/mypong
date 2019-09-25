@@ -258,7 +258,7 @@ while True:
         hud.write("{} : {}".format(score_1, score_2), align="center", font=(
             "Press Start 2P", 24, "normal"))
         screen.listen()
-    print(argv[1])
+
     # módulo 1 jogador    
     if len(argv) == 2:
         if str(argv[1]) == "-1":
